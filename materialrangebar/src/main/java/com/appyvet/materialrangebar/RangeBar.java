@@ -33,6 +33,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -142,9 +143,11 @@ public class RangeBar extends View {
     // setThumbIndices() is called, to correspond with intended usage
     private boolean mFirstSetTickCount = true;
 
-    private int mDefaultWidth = 500;
+    private final DisplayMetrics mDisplayMetrices = getResources().getDisplayMetrics();
 
-    private int mDefaultHeight = 150;
+    private int mDefaultWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, mDisplayMetrices);
+
+    private int mDefaultHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 75, mDisplayMetrices);
 
     private int mTickCount = (int) ((mTickEnd - mTickStart) / mTickInterval) + 1;
 
@@ -351,7 +354,7 @@ public class RangeBar extends View {
         // This is the initial point at which we know the size of the View.
 
         // Create the two thumb objects and position line in view
-        float density = getResources().getDisplayMetrics().density;
+        float density = mDisplayMetrices.density;
         float expandedPinRadius = mExpandedPinRadius / density;
 
         final float yPos = h - mBarPaddingBottom;
@@ -1090,35 +1093,35 @@ public class RangeBar extends View {
 
             mTickHeight = ta.getDimension(R.styleable.RangeBar_mrb_tickHeight,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_TICK_HEIGHT_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mBarWeight = ta.getDimension(R.styleable.RangeBar_mrb_barWeight,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_BAR_WEIGHT_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mCircleSize = ta.getDimension(R.styleable.RangeBar_mrb_selectorSize,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_CIRCLE_SIZE_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mCircleBoundarySize = ta.getDimension(R.styleable.RangeBar_mrb_selectorBoundarySize,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_CIRCLE_BOUNDARY_SIZE_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mConnectingLineWeight = ta.getDimension(R.styleable.RangeBar_mrb_connectingLineWeight,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_CONNECTING_LINE_WEIGHT_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mExpandedPinRadius = ta.getDimension(R.styleable.RangeBar_mrb_pinRadius,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_EXPANDED_PIN_RADIUS_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mPinPadding = ta.getDimension(R.styleable.RangeBar_mrb_pinPadding,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_PIN_PADDING_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
             mBarPaddingBottom = ta.getDimension(R.styleable.RangeBar_mrb_rangeBarPaddingBottom,
                     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_BAR_PADDING_BOTTOM_DP,
-                            getResources().getDisplayMetrics())
+                            mDisplayMetrices)
             );
 
             mBarColor = ta.getColor(R.styleable.RangeBar_mrb_rangeBarColor, DEFAULT_BAR_COLOR);
@@ -1145,7 +1148,7 @@ public class RangeBar extends View {
             mIsRangeBar = ta.getBoolean(R.styleable.RangeBar_mrb_rangeBar, true);
             mArePinsTemporary = ta.getBoolean(R.styleable.RangeBar_mrb_temporaryPins, true);
 
-            float density = getResources().getDisplayMetrics().density;
+            float density = mDisplayMetrices.density;
             mMinPinFont = ta.getDimension(R.styleable.RangeBar_mrb_pinMinFont,
                     DEFAULT_MIN_PIN_FONT_SP * density);
             mMaxPinFont = ta.getDimension(R.styleable.RangeBar_mrb_pinMaxFont,
